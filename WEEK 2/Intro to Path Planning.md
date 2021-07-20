@@ -16,10 +16,12 @@ For the graph search method, there are 2 important concepts
 
 - Graph Search Algorithms  
 
-Path planning approaches are usually gauged by 2 factors:  
+Path planning approaches are usually gauged by 4 factors:  
 - Completeness: Whether the robot will reach the required point  
 
-- Optimaltiy: Whether the approach will find the bet solution (Best could be in terms of, least distance travelled, least amount of resources used, etc.)
+- Optimaltiy: Whether the approach will find the best solution (Best could be in terms of, least distance travelled, least amount of resources used, etc.) under the influence of some heuristic(cost function)
+- Time Complexity: How long does it take to find the solution
+- Space Complexity: How much memory is needed to perform the search
 
 ## Graph Search Methods
 
@@ -85,3 +87,15 @@ The Configuration Space (Set of all **Possible** configurations of the robot) of
     Takes all possible states of the robot and discretizes them into smaller states, similiar to a grid style representation. A problem with this method is, as the dimensionality of the robot(the number of joints or degrees of freedom) increases, the amount of discretisation increases exponentially and results in large calculations
 - Sampling Based Planning  
     Uses collision detection to probe and incrementally search the C-space for a solution
+
+## Search
+Process of finding a sequence of configurations that lead us from the current configuration to the goal configuration.
+
+There are 2 types of search algorithms:
+- Uninformed Search
+    - Beside the problem definition, no further information about the system is known("Blind Search")
+    - Expand different nodes with the hope of reaching the goal configuration
+    - Examples: breadth-first, uniform cost, depth-first, bidirectional
+- Informed Search
+    - Further information about the C-Space is gained through heuristics(Provide an **Estimate** of the cost in going from the start to the goal configuration)
+    - The heuristic provides us a way to find out whether we are going in the correct direction or not. It gives us sense of direction, hence speeding up the search

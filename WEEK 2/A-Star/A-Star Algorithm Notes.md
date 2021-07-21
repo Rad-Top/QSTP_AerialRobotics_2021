@@ -54,9 +54,9 @@ A* algorithm uses the sum of the accumulated path cost(g) and the heuristic(h) t
 - Increases **distance to obstacles** but the robot moves on a short path
 
 - The Binomial Kernel Performs the blur as sgiven:
-P(OCC<sub>x,y</sub>) = $\frac{1}{4}$.P(OCC<sub>x-1,y</sub>) + P(OCC<sub>x,y</sub>)
-
-
+P(OCC<sub>x,y</sub>) = $\frac{1}{4}$.P(OCC<sub>x-1,y</sub>) + $\frac{1}{2}$ P(OCC<sub>x,y</sub>) + $\frac{1}{4}$ P(OCC<sub>x+1,y</sub>), where P(OCC) is the probabiltity of the occupancy of a grid sqare x,y
+- This is done for each row and each column and is called **Gaussian Blur**
+- 
 
 
 

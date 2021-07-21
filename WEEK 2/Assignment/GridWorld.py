@@ -129,20 +129,23 @@ class GridWorld:
 
     def make_nodes(self):
         '''Make all the nodes and store them in a KDTree.'''
-
         self.nodes = []
+
         for x in np.arange(-2, self.X + 2, POINT_DIST):
             for y in np.arange(-2, self.Y + 12, POINT_DIST):
                 self.nodes.append([x, y])
+
         self.nodes = np.array(self.nodes)
         self.tree = KDTree(self.nodes, leaf_size=2)
-
+#----------------------------------------------------------------------------------------
     # --- Plotting functions
     def plot_obstacles(self):
         for obst in self.obstacles:
             obst.plot_obstacle(self.ax)
+
         if PLOT_POINTS:
             self.plot_points()
+            
         if PLOT_START_AND_GOAL:
             self.plot_start_and_goal()
 

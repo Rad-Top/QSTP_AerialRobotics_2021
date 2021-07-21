@@ -21,9 +21,11 @@ class Obstacle:
         self.type = type_
 
     def plot_obstacle(self, ax):
+        '''Plots the obstacles by adding it as a patch.'''
         ax.add_patch(self.patch)
 
     def check_collision(self, point):
+        '''Check the collision'''
         if point.within(self.obj):
             return True
         else:
@@ -140,13 +142,14 @@ class GridWorld:
 #----------------------------------------------------------------------------------------
     # --- Plotting functions
     def plot_obstacles(self):
+        '''Plot the obstacles'''
         for obst in self.obstacles:
             obst.plot_obstacle(self.ax)
 
         if PLOT_POINTS:
             self.plot_points()
             
-        if PLOT_START_AND_GOAL:
+        if PLOT_START_AND_GOAL: 
             self.plot_start_and_goal()
 
     def plot_points(self):
@@ -155,6 +158,7 @@ class GridWorld:
                 plt.scatter(x, y, color="red", alpha=0.5)
 
     def plot_start_and_goal(self):
+        '''Plot the start and goal points.'''
         self.ax.scatter(
             [self.start[0], self.goal[0]],
             [self.start[1], self.goal[1]],
@@ -163,6 +167,7 @@ class GridWorld:
         )
 
     def plot_path(self, path):
+        '''Plot the path.'''
         self.ax.scatter(
             [p[0] for p in path], [p[1] for p in path], color="r", marker="x"
         )
@@ -185,6 +190,7 @@ class GridWorld:
         return False
 
     def check_collision_of_path(self, path):
+        '''Checks the collision of the path with an obstacle.'''
         for obst in self.obstacles:
             if LineString(path).intersects(obst.obj):
                 return True
@@ -193,6 +199,7 @@ class GridWorld:
 
     # --- Functions for nearest neighbour search
     def obtain_nearest_n(self, point, n=1, sort_results=False, return_distance=False):
+        '''Obtain the nearest neighbour to the current node'''
         # use KDTree to store all the nodes
         # and query the nearest n neighbours
         if not sort_results:
@@ -200,12 +207,14 @@ class GridWorld:
                 np.array([[point.x, point.y]]), k=n, return_distance=return_distance
             )[0]
             return [Point(x[0], x[1]) for x in self.nodes[inds]]
+
         elif sort_results and not return_distance:
             dis, inds = self.tree.query(
                 np.array([[point.x, point.y]]), k=n, sort_results=sort_results
             )
             inds = inds[0]
             return [Point(x[0], x[1]) for x in self.nodes[inds]]
+
         elif sort_results and return_distance:
             dis, inds = self.tree.query(
                 np.array([[point.x, point.y]]),
@@ -218,14 +227,17 @@ class GridWorld:
 
     def obtain_nearest_in_r(
         self, point, r=2, sort_results=False, return_distance=False
-    ):
+        ):
+        '''Obtain the nearest neighbour in a radius r.'''
         # use KDTree to store all the nodes
         # and query the nearest neighbours in r radius
+
         if not sort_results:
             inds = self.tree.query_radius(
                 np.array([[point.x, point.y]]), r=r, sort_results=sort_results
             )[0]
             return [Point(x[0], x[1]) for x in self.nodes[inds]]
+            
         elif sort_results:
             inds, dis = self.tree.query_radius(
                 np.array([[point.x, point.y]]),

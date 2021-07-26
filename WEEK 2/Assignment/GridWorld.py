@@ -47,7 +47,7 @@ class Obstacle:
             )
         )
 
-
+#----------------------------------------------------------------------------------------
 class GridWorld:
     """Basic World that consisits of Grid
     Args:
@@ -237,7 +237,7 @@ class GridWorld:
                 np.array([[point.x, point.y]]), r=r, sort_results=sort_results
             )[0]
             return [Point(x[0], x[1]) for x in self.nodes[inds]]
-            
+
         elif sort_results:
             inds, dis = self.tree.query_radius(
                 np.array([[point.x, point.y]]),

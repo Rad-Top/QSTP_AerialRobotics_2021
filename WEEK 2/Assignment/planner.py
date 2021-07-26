@@ -12,9 +12,8 @@ class Planner:
 
     def search(self, start, goal):
         # Given a start and goal location, perform search using A-star or Dijkstra
-
-        return path
-
+        i = 2
+        #return path
 if __name__ == "__main__":
     env = GridWorld()
     planner = Planner(env)
